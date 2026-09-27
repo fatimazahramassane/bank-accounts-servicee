@@ -1,98 +1,289 @@
+<div align="center">
+
 # Compte Bancaire Microservice
 
-* **Étudiante :** Majri Salma Master SDIA 2
-* **Encadrant :** Prof. Mohamed Youssfi
-* Activité Pratique N°1 - Implémentation d'un micro service avec spring boot
+**Activité Pratique N°1 — Implémentation d'un microservice avec Spring Boot**
 
-Application Spring Boot complète pour la gestion de comptes bancaires et de clients, développée pas à pas avec persistance JPA, API RESTful, documentation Swagger, projections Spring Data REST, et API GraphQL.
+![Java](https://img.shields.io/badge/Java-Spring_Boot-6DB33F?logo=springboot&logoColor=white)
+![Spring Data JPA](https://img.shields.io/badge/Spring_Data_JPA-Hibernate-6DB33F)
+![GraphQL](https://img.shields.io/badge/GraphQL-API-E10098?logo=graphql&logoColor=white)
+![H2 Database](https://img.shields.io/badge/H2-Database-445511)
+![Swagger](https://img.shields.io/badge/Swagger-OpenAPI-85EA2D?logo=swagger&logoColor=black)
 
-## Table des Matières
-1. [Description du Projet](#description-du-projet)
-2. [Technologies Utilisées](#technologies-utilisées)
-3. [Architecture et Étapes de Réalisation](#architecture-et-étapes-de-réalisation)
-4. [Tests des API REST (Postman & Swagger)](#tests-des-api-rest-postman--swagger)
-5. [Projections Spring Data REST](#projections-spring-data-rest)
-6. [API GraphQL & Gestion des Erreurs](#api-graphql--gestion-des-erreurs)
+</div>
 
 ---
 
-## 1. Description du Projet
-Ce projet consiste en la création d'un microservice bancaire permettant de gérer des comptes et des clients. Il met en œuvre les bonnes pratiques de développement avec Spring Boot, l'exposition de services REST et GraphQL, ainsi que la gestion centralisée des exceptions.
+##  Informations du projet
+
+| | |
+|---|---|
+| **Réalisatrice** | Fatimazahra Massane |
+| **Formation** | Master SDIA — Systèmes Distribués et Intelligence Artificielle |
+| **Encadrant** | Prof. Mohamed Youssfi |
+| **Année universitaire** | 2026/2027 |
+| **Période** | Septembre 2026 |
 
 ---
 
-## 2. Technologies Utilisées
-* Java / Spring Boot
-* Spring Data JPA (Hibernate)
-* Base de données H2 (In-memory)
-* Lombok
-* Springdoc OpenAPI / Swagger UI
-* Spring GraphQL
+##  Table des matières
+
+1. [Description du projet](#1-description-du-projet)
+2. [Technologies utilisées](#2-technologies-utilisées)
+3. [Architecture et étapes de réalisation](#3-architecture-et-étapes-de-réalisation)
+4. [Tests des API REST](#4-tests-des-api-rest-postman--swagger)
+5. [Projections Spring Data REST](#5-projections-spring-data-rest)
+6. [API GraphQL & gestion des erreurs](#6-api-graphql--gestion-des-erreurs)
+7. [Installation et démarrage](#7-installation-et-démarrage)
+8. [Endpoints disponibles](#8-endpoints-disponibles)
 
 ---
 
-## 3. Architecture et Étapes de Réalisation
-1. Création du projet Spring Boot avec les dépendances Web, Spring Data JPA, H2 et Lombok.
-2. Création de l'entité JPA `BankAccount` et de l'entité `Customer`.
-3. Création des interfaces `BankAccountRepository` et `CustomerRepository` basées sur Spring Data.
-4. Implémentation des DTOs, des mappers et de la couche service (métier).
-5. Exposition des API RESTful et configuration de la documentation Swagger.
-6. Intégration de Spring Data REST avec l'utilisation de projections.
-7. Développement de l'API GraphQL pour les requêtes et mutations avec gestion personnalisée des erreurs.
+## 1. Description du projet
+
+Ce projet consiste en la création d'un **microservice bancaire** complet permettant de gérer des comptes bancaires et des clients. Il met en œuvre les bonnes pratiques de développement avec **Spring Boot**, l'exposition de services **REST** et **GraphQL**, ainsi que la gestion centralisée des exceptions.
+
+**Fonctionnalités principales :**
+- ✅ CRUD complet des comptes bancaires et des clients
+- ✅ API RESTful documentée avec Swagger/OpenAPI
+- ✅ Projections Spring Data REST pour un contrôle fin des données
+- ✅ API GraphQL avec requêtes et mutations
+- ✅ Gestion personnalisée des erreurs
+- ✅ Base de données H2 en mémoire
 
 ---
 
-## 4. Tests des API REST & Documentation
+## 2. Technologies utilisées
 
-### Test via Postman (Création et Consultation)
-* **Création d'un compte (POST) :** Envoi d'une requête JSON à l'endpoint `/bankAccounts` pour enregistrer un nouveau compte.
-* **Consultation des comptes (GET) :** Récupération de la liste de tous les comptes enregistrés.
+| Domaine | Technologie |
+|---------|-------------|
+| **Langage** | Java 17+ |
+| **Framework** | Spring Boot 3.x |
+| **ORM** | Spring Data JPA (Hibernate) |
+| **Base de données** | H2 (In-memory) |
+| **Documentation** | Springdoc OpenAPI / Swagger UI |
+| **API Query** | Spring GraphQL |
+| **Réduction de code** | Lombok |
+| **Build Tool** | Maven |
 
-| Création de Compte (POST) | Liste des Comptes (GET) |
-| :---: | :---: |
-| ![Création de compte](images/1.png) | ![Liste des comptes](images/2.png) |
+---
 
-### Documentation Swagger UI & OpenAPI
-L'interface Swagger permet de visualiser et d'interagir directement avec les endpoints REST du microservice.
+## 3. Architecture et étapes de réalisation
 
-| Documentation OpenAPI (JSON) | Interface Swagger UI |
-| :---: | :---: |
-| ![API Docs](images/3.png) | ![Swagger UI List](images/4.png) |
+### Phase 1 : Initialisation et modélisation
+1. Création du projet Spring Boot avec les dépendances Web, Spring Data JPA, H2 et Lombok
+2. Création de l'entité JPA `BankAccount` et de l'entité `Customer`
+3. Création des interfaces `BankAccountRepository` et `CustomerRepository`
 
-* **Détails d'un compte via Swagger :**
+### Phase 2 : Couche métier
+4. Implémentation des DTOs (`BankAccountRequestDTO`, `BankAccountResponseDTO`)
+5. Création des mappers pour la conversion Entity ↔ DTO
+6. Implémentation de la couche service (métier) avec `AccountService`
 
-| Consultation par ID (Swagger) | Exécution d'une requête POST (Swagger) |
-| :---: | :---: |
-| ![Swagger Get By ID](images/5.png) | ![Swagger Post Execution](images/6.png) |
+### Phase 3 : Exposition des API
+7. Création du contrôleur REST `AccountRestController`
+8. Configuration de la documentation Swagger/OpenAPI
+9. Intégration de Spring Data REST avec projections personnalisées
+
+### Phase 4 : GraphQL et gestion des erreurs
+10. Développement de l'API GraphQL (`BankAccountGraphQLController`)
+11. Configuration du schéma GraphQL (`schema.graphqls`)
+12. Gestion personnalisée des erreurs avec `CustomDataFetcherExceptionResolver`
+
+---
+
+## 4. Tests des API REST (Postman & Swagger)
+
+### Test via Postman
+
+#### Création d'un compte (POST)
+```bash
+POST http://localhost:8080/bankAccounts
+Content-Type: application/json
+
+{
+  "id": "BA001",
+  "balance": 5000.0,
+  "currency": "MAD",
+  "type": "SAVINGS_ACCOUNT",
+  "customerId": "CUST001"
+}
+```
+
+#### Consultation des comptes (GET)
+```bash
+GET http://localhost:8080/bankAccounts
+```
+
+### Documentation Swagger UI
+
+Accès à l'interface interactive : **http://localhost:8080/swagger-ui.html**
+
+| Fonctionnalité | Endpoint |
+|----------------|----------|
+| Liste des comptes | `GET /bankAccounts` |
+| Compte par ID | `GET /bankAccounts/{id}` |
+| Création | `POST /bankAccounts` |
+| Mise à jour | `PUT /bankAccounts/{id}` |
+| Suppression | `DELETE /bankAccounts/{id}` |
 
 ---
 
 ## 5. Projections Spring Data REST
-Spring Data REST permet d'exposer directement les repositories tout en contrôlant les formats de sortie grâce aux projections.
 
-* **Recherche par type de compte (`findByType`) :**
+Spring Data REST permet d'exposer directement les repositories tout en contrôlant les formats de sortie grâce aux **projections**.
 
-![Recherche par type](images/8.png)
+### Projection personnalisée
 
-* **Utilisation d'une projection personnalisée (`projection=p1`) :**
+```java
+@Projection(name = "p1", types = BankAccount.class)
+public interface AccountProjection {
+    String getId();
+    Double getBalance();
+    String getCurrency();
+}
+```
 
-![Projection P1](images/9.png)
+### Utilisation
+
+```bash
+# Récupération avec projection
+GET http://localhost:8080/bankAccounts/search/findByType?type=SAVINGS_ACCOUNT&projection=p1
+```
 
 ---
 
-## 6. API GraphQL & Gestion des Erreurs
-L'API GraphQL offre une flexibilité totale dans la récupération des données à travers des requêtes ciblées et des mutations sécurisées.
+## 6. API GraphQL & gestion des erreurs
 
-* **Récupération de la liste des comptes :**
+### Schéma GraphQL
 
-![GraphQL Accounts List](images/14.png)
+Le fichier `schema.graphqls` définit les types, requêtes et mutations :
 
-* **Recherche d'un compte par son identifiant (`bankAccountById`) :**
+```graphql
+type BankAccount {
+    id: ID!
+    balance: Float!
+    currency: String!
+    type: AccountType!
+    customer: Customer
+}
 
-![GraphQL Account By ID](images/15.png)
+type Query {
+    bankAccounts: [BankAccount!]!
+    bankAccountById(id: ID!): BankAccount
+}
 
-* **Gestion personnalisée des erreurs GraphQL (ID introuvable ou invalide) :**
+type Mutation {
+    createBankAccount(input: BankAccountInput!): BankAccount!
+    deleteBankAccount(id: ID!): Boolean!
+}
+```
 
-|      Erreur Interne (ID non trouvé)      |     Message d'Erreur Personnalisé      |
-|:----------------------------------------:|:--------------------------------------:|
-| ![GraphQL Internal Error](images/12.png) | ![GraphQL Custom Error](images/13.png) |
+### Requêtes GraphQL
+
+#### Récupérer tous les comptes
+```graphql
+query {
+    bankAccounts {
+        id
+        balance
+        currency
+        type
+    }
+}
+```
+
+#### Créer un compte
+```graphql
+mutation {
+    createBankAccount(input: {
+        balance: 5000.0,
+        currency: "MAD",
+        type: SAVINGS_ACCOUNT,
+        customerId: "CUST001"
+    }) {
+        id
+        balance
+    }
+}
+```
+
+### Gestion des erreurs
+
+Les erreurs GraphQL sont gérées de manière personnalisée via `CustomDataFetcherExceptionResolver` pour retourner des messages clairs et exploitables par le client.
+
+---
+
+## 7. Installation et démarrage
+
+### Prérequis
+- JDK 17 ou supérieur
+- Maven 3.8+
+- IDE (IntelliJ IDEA, Eclipse, VS Code)
+
+### Démarrage
+
+```bash
+# 1. Cloner le dépôt
+git clone https://github.com/fatimazahramassane/bank-accounts-servicee.git
+cd bank-accounts-servicee
+
+# 2. Compiler le projet
+mvn clean install
+
+# 3. Lancer l'application
+mvn spring-boot:run
+```
+
+### Accès à l'application
+
+- **Swagger UI** : http://localhost:8080/swagger-ui.html
+- **GraphiQL (Interface GraphQL)** : http://localhost:8080/graphiql
+- **H2 Console** : http://localhost:8080/h2-console
+  - JDBC URL: `jdbc:h2:mem:bankdb`
+  - Username: `sa`
+  - Password: ``
+
+---
+
+## 8. Endpoints disponibles
+
+### REST API
+
+| Méthode | Endpoint | Description |
+|---------|----------|-------------|
+| GET | `/bankAccounts` | Liste tous les comptes |
+| GET | `/bankAccounts/{id}` | Récupère un compte par ID |
+| POST | `/bankAccounts` | Crée un nouveau compte |
+| PUT | `/bankAccounts/{id}` | Met à jour un compte |
+| DELETE | `/bankAccounts/{id}` | Supprime un compte |
+| GET | `/bankAccounts/search/findByType` | Recherche par type |
+
+### Spring Data REST
+
+| Endpoint | Description |
+|----------|-------------|
+| `/bankAccounts` | Exposition REST complète |
+| `/bankAccounts/search` | Méthodes de recherche |
+| `/bankAccounts/{id}?projection=p1` | Avec projection |
+
+### GraphQL
+
+| Type | Nom | Description |
+|------|-----|-------------|
+| Query | `bankAccounts` | Liste tous les comptes |
+| Query | `bankAccountById` | Récupère un compte par ID |
+| Mutation | `createBankAccount` | Crée un compte |
+| Mutation | `deleteBankAccount` | Supprime un compte |
+
+---
+
+---
+
+<div align="center">
+
+**Projet réalisé par Fatimazahra Massane**  
+Master SDIA — ENSET Mohammedia  
+Année universitaire 2026/2027
+
+</div>
