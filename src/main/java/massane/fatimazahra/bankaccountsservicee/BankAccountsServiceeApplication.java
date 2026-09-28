@@ -31,8 +31,7 @@ public class BankAccountsServiceeApplication {
                         .createdAI(new Date())
                         .currency("MAD")
                         .build();
-
-                BankAccountRepository.save(bankAccount);
+    BankAccountRepository.save(bankAccount);
 
             };
         };
