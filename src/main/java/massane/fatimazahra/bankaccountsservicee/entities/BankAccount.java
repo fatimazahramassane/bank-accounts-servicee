@@ -20,5 +20,5 @@ public class BankAccount {
     private Date createdAI;
    // @Enumerated(EnumType.STRING)
     private AccountType type;
-    private string currency  ;
+    private String currency  ;
 }
