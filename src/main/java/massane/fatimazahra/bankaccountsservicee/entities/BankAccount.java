@@ -2,9 +2,9 @@ package massane.fatimazahra.bankaccountsservicee.entities;
 
 
 
-
+import jakarta.persistence.EnumType;
 import jakarta.persistence.*;
-        import lombok.*;
+import lombok.*;
 import massane.fatimazahra.bankaccountsservicee.enums.AccountType;
 
 import java.util.Date;
@@ -12,13 +12,15 @@ import java.util.Date;
 @Entity
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
 public class BankAccount {
-
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
+
     private double balance;
    // @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAI;
+    private Date createdAt;
    // @Enumerated(EnumType.STRING)
-    private AccountType type;
-    private String currency  ;
+   @Enumerated(EnumType.STRING)
+   private AccountType type;
+   private String currency  ;
 }
