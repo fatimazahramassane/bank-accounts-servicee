@@ -1,43 +1,41 @@
 package massane.fatimazahra.bankaccountsservicee;
-
+import massane.fatimazahra.bankaccountsservicee.entities.AccountStatus;
+import massane.fatimazahra.bankaccountsservicee.entities.CurrentAccount;
 import massane.fatimazahra.bankaccountsservicee.entities.BankAccount;
+import massane.fatimazahra.bankaccountsservicee.entities.SavingAccount;
 import massane.fatimazahra.bankaccountsservicee.enums.AccountType;
 import massane.fatimazahra.bankaccountsservicee.repositories.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
+import lombok.experimental.SuperBuilder;
 import java.util.Date;
 import java.util.UUID;
 
-@SpringBootApplication
-public class BankAccountsServiceeApplication {
+@Bean
+CommandLineRunner start(BankAccountRepository bankAccountRepository) {
+    return args -> {
+        CurrentAccount ca = CurrentAccount.builder()
+                .id(UUID.randomUUID().toString())
+                .balance(9000)
+                .createdAt(new Date())
+                .status(AccountStatus.CREATED)
+                .overdraft(5000)
+                .build();
+        bankAccountRepository.save(ca);
 
-    public static void main(String[] args) {
-        SpringApplication.run(BankAccountsServiceeApplication.class, args);
-    }
+        SavingAccount sa = SavingAccount.builder()
+                .id(UUID.randomUUID().toString())
+                .balance(12000)
+                .createdAt(new Date())
+                .status(AccountStatus.ACTIVATED)
+                .interestRate(5.5)
+                .build();
+        bankAccountRepository.save(sa);
 
-
-    @Bean
-    <BankAccoutRepository>
-    CommandLineRunner start(BankAccoutRepository BankAccountRepository) {
-        return args -> {
-            for (int i = 0; i < 10; i++) {
-                BankAccount bankAccount = BankAccount.builder()
-                        .id(UUID.randomUUID().toString())
-                        .type(Math.random() > 0.5 ? AccountType.CURRENT_ACCOUNT : AccountType.SAVING_ACCOUNT)
-                        .balance(10000 * Math.random() * 90000)
-                        .createdAI(new Date())
-                        .currency("MAD")
-                        .build();
-    BankAccountRepository.save(bankAccount);
-
-            };
-        };
-    }
-
+        bankAccountRepository.findAll().forEach(a -> System.out.println(a));
+    };
 }
-
 
 
